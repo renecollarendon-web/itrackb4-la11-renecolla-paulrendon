@@ -1,59 +1,33 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>My Favorite Movies</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-            background: #f0f0f0;
-        }
-        h1 {
-            color: #2c3e50;
-        }
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            background: white;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        th {
-            background-color: #3498db;
-            color: white;
-            padding: 12px;
-            text-align: left;
-        }
-        td {
-            padding: 10px;
-            border: 1px solid #ddd;
-        }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        .name {
-            margin-top: 20px;
-            font-style: italic;
-            color: #555;
-            font-size: 16px;
-        }
-    </style>
-</head>
-<body>
-    <h1> My Favorite Movies</h1>
+@extends('layouts.app')
 
-    <table border="1" cellpadding="8">
+@section('title', 'All Movies')
+
+@section('content')
+ <h1> My Favorite Movies</h1>
+
+    <table class="table table-striped table-bordered">
+        <thead class='table-dark'>
         <tr>
+            <th>No.</th>
             <th>Title</th>
             <th>Genre</th>
             <th>Rating</th>
             <th>Director</th>
             <th>Year</th>
+            <th>Action</th>
         </tr>
-        @foreach ($movies as $movie)
-        <tr>
+        </thead>
+        
+        @forelse ($movies as $movie)
+        <tr class="{{ $movie['rating'] >= 8.5 ? 'table-success' : '' }}">
+            <td>{{ $loop->iteration }}</td>
             <td>{{ $movie['title'] }}</td>
             <td>{{ $movie['genre'] }}</td>
-            <td>{{ $movie['rating'] }}</td>
+            <td>{{ $movie['rating'] }}
+                @if ($movie['rating'] >= 8.5)
+                  <span class="badge bg-success">Top Rated!</span>
+            @endif
+            </td>
             <td>{{ $movie['director'] }}</td>
             <td>{{ $movie['year'] }}</td>
 
@@ -61,9 +35,10 @@
         <a href="{{ route('movies.show', $movie['id']) }}">View Details</a>
     </td>
         </tr>
-        @endforeach
+        @empty
+        <tr>
+            <td colspan="7">No movies found. Please add some movies to your collection.</td>
+        </tr>
+        @endforelse
     </table>
-
-    <p class="name">Prepared by: Paul Rendon B. Renecolla | Block 4A</p>
-</body>
-</html>
+@endsection

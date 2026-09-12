@@ -1,20 +1,22 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ $movie['title'] }} - Movie Details</title>
-</head>
-<body>
-    <h1>{{ $movie['title'] }}</h1>
-    <p><strong>Prepared by:</strong> Paul Rendon B. Renecolla</p>
-    
-    <ul>
-        <li><strong>Genre:</strong> {{ $movie['genre'] }}</li>
-        <li><strong>Rating:</strong> {{ $movie['rating'] }}/10</li>
-        <li><strong>Director:</strong> {{ $movie['director'] }}</li>
-        <li><strong>Year:</strong> {{ $movie['year'] }}</li>
-    </ul>
-    
-    <!-- IMPORTANT: Link back to list using route name -->
-    <a href="{{ route('movies.index') }}">Back to all movies</a>
-</body>
-</html>
+@extends('layouts.app')
+
+@section('title', $movie['title'])
+
+@section('content')
+   
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title">{{ $movie['title'] }}</h2>
+            <p><strong>Genre:</strong> {{ $movie['genre'] }}</p>
+            <p><strong>Rating:</strong> {{ $movie['rating'] }}/10</p>
+            <p><strong>Director:</strong> {{ $movie['director'] }}</p>
+            <p><strong>Year:</strong> {{ $movie['year'] }}</p>
+            
+            <a href="{{ route('movies.index') }}" class="btn btn-primary"> Back to All Movies</a>
+        </div>
+    </div>
+@endsection
+
+
+
+
