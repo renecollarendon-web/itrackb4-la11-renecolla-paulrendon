@@ -10,15 +10,15 @@ class MovieController extends Controller
     {
         return [
 
-            1 =>['id' => 1, 'title' => 'Your Name', 'genre' => 'Romance, Fantasy, Drama', 'rating' => 8.4, 'director' => 'Makoto Shinkai', 'year' => 2016],
+            1 =>['id' => 1, 'title' => 'Your Name', 'genre' => 'Romance, Fantasy, Drama', 'rating' => 8.8, 'director' => 'Makoto Shinkai', 'year' => 2016],
 
             2 =>['id' => 2, 'title' => 'A Silent Voice', 'genre' => 'Drama, Romance', 'rating' => 8.1, 'director' => 'Naoko Yamada ', 'year' => 2016],
 
             3 =>['id' => 3, 'title' => 'Spirited Away', 'genre' => 'Fantasy, Adventure, Supernatural', 'rating' => 8.6, 'director' => 'Hayao Miyazaki', 'year' => 2001],
 
-            4 => ['id' => 4, 'title' => 'I Want To Eat Your Pancreas', 'genre' => 'Drama, Romance', 'rating' => 8.0, 'director' => 'Shinichiro Ushijima', 'year' => 2017],
+            4 => ['id' => 4, 'title' => 'I Want To Eat Your Pancreas', 'genre' => 'Drama, Romance', 'rating' => 8.1, 'director' => 'Shinichiro Ushijima', 'year' => 2017],
 
-            5 =>['id' => 5, 'title' => 'Weathering With You', 'genre' => 'Romance, Fantasy, Drama', 'rating' => 8.0, 'director' => 'Makoto Shinkai', 'year' => 2019],
+            5 =>['id' => 5, 'title' => 'Weathering With You', 'genre' => 'Romance, Fantasy, Drama', 'rating' => 8.2, 'director' => 'Makoto Shinkai', 'year' => 2019],
 
             6 => ['id' => 6, 'title' => 'Princess Mononoke', 'genre' => 'Fantasy, Adventure, Action', 'rating' => 8.4, 'director' => 'Hayao Miyazaki', 'year' => 1997],
         ];
@@ -38,6 +38,7 @@ class MovieController extends Controller
         return view('movies.show', ['movie' => $movie]);
     }
 
+
     public function featured()
 {
     $movies = $this->getMovies();
@@ -48,6 +49,7 @@ class MovieController extends Controller
     // You can reuse the detail view!
     return view('movies.show', ['movie' => $featuredMovie]);
 }
+
 
     public function filter($genre = null)  // Note the default value!
 {
@@ -68,7 +70,6 @@ class MovieController extends Controller
         }
         $activeFilter = $genre;
     }
-    
     return view('movies.filter', [
         'movies' => $movies,
         'activeFilter' => $activeFilter

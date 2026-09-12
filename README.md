@@ -11,9 +11,8 @@ Date: September 2 2026
 ### Q1:
 
 I put the featured route (`/movies/featured`) above the detail route 
-(`/movies/{id}`) because Laravel reads routes from top to bottom, like 
-reading a list. If I swapped them, the detail route would see 
-`/movies/featured` and think "featured" is an ID number, then try to 
+(`/movies/{id}`) because Laravel read the routes starting from the top to bottom. If I swapped them, the detail route would see 
+`/movies/featured` and think that "featured" is an ID number, then try to 
 find a movie with that ID. Since there is no movie with ID "featured", 
 it would show a 404 error page. By putting the featured route first, 
 Laravel finds the exact match before trying to treat it as an ID.
@@ -22,7 +21,7 @@ Laravel finds the exact match before trying to treat it as an ID.
 
 When someone types a wrong ID like `/movies/999`, my code uses `isset()` 
 to check if that ID exists in my movie list. If it doesn't exist, I use 
-`abort(404)` which shows a proper "Page Not Found" error page instead of 
+`abort(404)` which show a proper "Page Not Found" error page instead of 
 showing ugly PHP error messages with file paths. This keeps my site 
 looking professional and safe from hackers who might use error messages 
 to find weaknesses.
