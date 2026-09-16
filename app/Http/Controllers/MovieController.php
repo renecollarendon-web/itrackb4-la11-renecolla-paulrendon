@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class MovieController extends Controller
 {
-    private function getMovies()
+       private function getMovies()
     {
         return [
 
@@ -23,13 +23,34 @@ class MovieController extends Controller
             6 => ['id' => 6, 'title' => 'Princess Mononoke', 'genre' => 'Fantasy, Adventure, Action', 'rating' => 8.4, 'director' => 'Hayao Miyazaki', 'year' => 1997],
         ];
 }
+
     public function index()
     {
         $movies =$this->getMovies();
         return view('movies.index', ['movies' => $movies]);
     }
 
-    public function show($id){
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
         $movies = $this->getMovies();
         if (!isset($movies[$id])){
             abort(404);
@@ -38,8 +59,30 @@ class MovieController extends Controller
         return view('movies.show', ['movie' => $movie]);
     }
 
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
 
-    public function featured()
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
+    }
+public function featured()
 {
     $movies = $this->getMovies();
     
@@ -76,3 +119,4 @@ class MovieController extends Controller
     ]);
 }
 }
+
