@@ -1,46 +1,14 @@
-# ITRACKB4 - Laboratory Activity 3
-## Movie List Application
+ITRACKB4 - Laboratory Activity 6: Two Filters, One Route
 
-Author:Paul Rendon B. Renecolla
-Course: ITRACKB4
-Date: September 2 2026
+Q1: Why was no new route needed when adding a second filter?
+The router only looks at the path of a URL, not the query string.  When I visit `/movies` and `/movies?genre=Romance`, the router sees the same path for both — which is just `/movies`. The `?genre=Romance` part is a query string, and the router ignores it completely. Because 
+of this, one route can handle all four URLs without needing a new one.
 
+Q2: What would the URL look like if both filters were route parameters?
+If both filters were route parameters, the URL for "year 4 only, no course filter" would have to be something like `/movies/filter/4`. But this creates a problem — there is no way to skip the course parameter and go straight to the year. To make it work, I would need to put a placeholder value for the course, like `/movies/filter/all/4`. This shows why route parameters are bad for optional filters, you cannot leave one out without breaking the URL structure. Query strings are much better because you can simply leave out the key you don't need.
 
-## Reflection Questions
+Q3: Which navigation case needed a change to the pattern, and why?
+The detail page case needed a change to the pattern because the URL `/movies/3` has a longer path than just `/movies`. To keep the link marked, I had to add a wildcard (`*`) to the pattern, making it `movies*`. The filter case did not need any change because `/movies genre=Romance` has the exact same path as `/movies`, the query string is not part of the path. Since `request()->is()` only checks the path, the filter case worked automatically.
 
-### Q1:
-
-I put the featured route (`/movies/featured`) above the detail route 
-(`/movies/{id}`) because Laravel read the routes starting from the top to bottom. If I swapped them, the detail route would see 
-`/movies/featured` and think that "featured" is an ID number, then try to 
-find a movie with that ID. Since there is no movie with ID "featured", 
-it would show a 404 error page. By putting the featured route first, 
-Laravel finds the exact match before trying to treat it as an ID.
-
-### Q2: 
-
-When someone types a wrong ID like `/movies/999`, my code uses `isset()` 
-to check if that ID exists in my movie list. If it doesn't exist, I use 
-`abort(404)` which show a proper "Page Not Found" error page instead of 
-showing ugly PHP error messages with file paths. This keeps my site 
-looking professional and safe from hackers who might use error messages 
-to find weaknesses.
-
-### Q3: 
-
-I use route names like `route('movies.index')` instead of typing the URL 
-like `/movies` because it's safer if I change the URL later. For example, 
-if I change `/movies` to `/films` in my routes file, all my links using 
-`route('movies.index')` will automatically work with the new address. If 
-I had typed `/movies` directly in my HTML, every link would break and 
-show 404 errors when I change the URL.
-
----
-
-## Author
-
-Paul Rendon B. Renecolla - ITRACKB4
-
-## Date
-
-September 3 2026
+Q4: Why delete the old filter method but keep the empty store and update methods?
+The old filter method was deleted because it has been replaced by a better implementation using query strings. Nothing will ever point to it again, so leaving it in the project would mean having two filter implementations, one of them dead code. The empty store and update  methods are different because they are not finished yet. They will be filled in during Weeks 7 and 10, so they stay in the controller as a reminder of work that is still to come. The rule is simple: keep code that is not finished yet, delete code that has been replaced.
