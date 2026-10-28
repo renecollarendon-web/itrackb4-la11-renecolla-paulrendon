@@ -64,40 +64,52 @@ class MovieController extends Controller
 
     // Redirect pabalik
     return redirect()->route('movies.index')->with('success', 'Movie added successfully.');
-}
+    }
 
     /**
      * Display the specified movie.
      */
-    public function show(string $id)
+    public function show(Movie $movie) 
     {
-        $movie = Movie::findOrFail($id);
-
-        return view('movies.show', ['movie' => $movie]);
+    return view('movies.show', compact('movie'));
     }
+
 
     /**
      * Show the form for editing the specified movie.
      */
-    public function edit(string $id)
+    public function edit(Movie $movie)
     {
-        //
+    $genres = \App\Models\Genre::all();
+    return view('movies.edit', compact('movie', 'genres'));
     }
+
 
     /**
      * Update the specified movie in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Movie $movie)
     {
-        //
+    $validated = $request->validate([
+        'title' => 'required|max:100',
+        'genre_id' => 'required|exists:genres,id',
+        'rating' => 'required|numeric',
+        'director' => 'required|max:100',
+        'year' => 'required|numeric',
+    ]);
+
+    $movie->update($validated);
+    return redirect()->route('movies.index')->with('success', 'Movie updated!');
     }
+
 
     /**
      * Remove the specified movie from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Movie $movie)
     {
-        //
+    $movie->delete();
+    return redirect()->route('movies.index')->with('success', 'Movie deleted!');
     }
 
     /**
