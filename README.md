@@ -1,10 +1,14 @@
-ITRACKB4 - LA10
+ITRACKB4 - LA11
 
-1: Which column did you turn into a table, and why that one and not another?
-I turned the genre column into a separate genres table because it is drawn from a fixed list and the same values repeat across many movies. Unlike year or rating, a genre is a real entity that could one day need its own details, like a description or a category.
+G1: Route model binding needs two things to be true. Name both, and say what happens when only one of them is.
 
-G2: What number did screenshot 6 show, and why exactly that number?
-Screenshot 6 showed 7 queries. There was 1 query to fetch all the movies, plus 1 extra query for each of the 6 movies to fetch its genre, which adds up to 7. After adding with('genre'), it dropped to 2 queries.
+The parameter must be type-hinted with the model class, and the parameter name must exactly match the route segment (example; $movie for {movie}). If the name is wrong, Laravel does not know which variable to bind, and you get an empty model or an error. If the type-hint is missing, it just passes the raw ID string.
 
-G3: Your belongsTo method is named in the singular. What would break if you made it plural?
-If I made the method plural (genres()), Eloquent would look for a column named genres_id in the movies table instead of genre_id. Since that column does not exist, the relationship would fail and the page would show an error or blank data.
+G2: Your Delete link gave a 404 even though the address was correct. Explain why.
+
+An <a> tag can only send a GET request, but the destroy route expects a DELETE request. The 404 happened because there was no route matching a GET request at that specific address. A form with @method('DELETE') is needed to send the correct verb.
+
+G3: old() takes a second argument on your edit form. What would break if you left it out, and what would break if you used only it?
+
+If I left out the second argument, the form would be blank on the first load because there is no old data yet. If I used only the second argument (without old()), my typed values would disappear after a failed submission, and the original record values would show up instead.
+

@@ -1,5 +1,7 @@
-<nav>
-    <a href="{{ route('movies.index') }}" class="btn btn-primary">All Movies</a>
-    <a href="{{ route('movies.featured') }}"class="btn btn-primary">Featured</a>
-    <a href="{{ route('movies.filter', 'Romance') }}" class="btn btn-primary"class="btn btn-primary">Romance Movies</a>
+
+<nav class="nav">
+    <a class="nav-link {{ request()->is('movies*') ? 'active' : '' }}" 
+       href="{{ route('movies.index') }}">All Movies</a>
+    <a class="nav-link {{ request()->is('movies/featured') ? 'active' : '' }}" 
+       href="{{ route('movies.featured') }}">Featured</a>
 </nav>
